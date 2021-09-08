@@ -23,6 +23,11 @@
                 {{/if}}
                 >
             <div class="productView-img-container">
+        <!--Custom Badge Code-->
+                {{> components/products/product-badge
+                    badge-type='custom' custom-fields=product.custom_fields card-id='main'
+                }}
+        <!--Custom Badge Code-->        
                 {{!-- Remove the surrounding a-element if there is no main image. --}}
                 {{#if product.main_image}}
                     <a href="{{getImageSrcset product.main_image (cdn theme_settings.default_image_product) 1x=theme_settings.zoom_size}}"
@@ -207,8 +212,17 @@
 
                 {{#if theme_settings.show_custom_fields_tabs '!==' true}}
                     {{#each product.custom_fields}}
-                        <dt class="productView-info-name">{{name}}:</dt>
-                        <dd class="productView-info-value">{{{ sanitize value}}}</dd>
+                        {{#if name '!==' 'Custom1'}}
+                            {{#if name '!==' 'Badges'}}
+                                <dt class="productView-info-name">{{name}}:</dt>
+                                <dd class="productView-info-value">{{{ sanitize value}}}</dd>
+                            {{/if}}   
+                        {{else}}
+                            {{#JSONparse value}}
+                                {{id}}
+                            {{/JSONparse}}
+                        {{/if}}
+                        </dl> 
                     {{/each}}
                 {{/if}}
             </dl>

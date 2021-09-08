@@ -26,4 +26,33 @@
         </div>
         <div class="{{badge-type}}-flag-star"></div>
     </div>
+<!--Custom Badge Code-->
+{{else if badge-type '===' 'custom'}}
+<div id="product-badges-{{card-id}}"></div>
+<script>
+    console.log("product-badges-{{card-id}}");
+        var customFields= JSON.parse('{{{json custom-fields}}}')
+        if(customFields!==null){
+            console.log(customFields);
+            customFields.forEach(function(customField) {
+                
+                if(customField.name === 'Badges')
+                {
+                    var badges = customField.value.split(',');
+                    console.log(badges);
+                    var productBadges = document.getElementById('product-badges-{{card-id}}');
+                    badges.forEach(function(badge){
+                        var container = document.createElement("div");
+                        container.setAttribute("class", "badge-"+badge+"-text-burst");
+                        var span_value = document.createElement("span");
+                        span_value.setAttribute("class", "badge-"+badge+"-text");
+                        span_value.innerHTML = badge;
+                        container.appendChild(span_value);
+                        productBadges.appendChild(container);
+                    });
+                }
+            });
+        }
+</script>
 {{/if}}
+<!--Custom Badge Code-->
