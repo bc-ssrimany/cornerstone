@@ -28,7 +28,24 @@
     </div>
 </header>
 
+{{#if in_development}}
+<script>
+    window.checkoutConfig = {
+        checkoutId: "{{ checkout.id }}",
+        containerId: "checkout-app",
+        publicPath: 'http://localhost:8080/'
+    };
+</script>
+<script src="http://localhost:8080/auto-loader-dev.js"></script>
+<div id="checkout-app"></div>
+{{ else }}
 {{{ checkout.checkout_content }}}
+{{/if}}
+
+
+
+<!-- Uncomment the below line if you are developing locally and are not planning to use the checkout SDK & not serving the loader-dev.js locally -->
+<!--{{{ checkout.checkout_content }}}-->
 
 {{{ footer.scripts }}}
 
